@@ -24,7 +24,7 @@ export default function Header() {
           </h1>
         </div>
         {/* ------------------------------------ */}
-        <div className="navbar-center flex gap-4">
+        <div className="navbar-center lg:flex gap-4 hidden">
           <NavLink
             to={"/"}
             className={({ isActive }) => (isActive ? "text-orange-500" : "")}

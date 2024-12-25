@@ -30,7 +30,7 @@ export default function MyBooking() {
       <Header />
       <h1>Booking : {booking.length}</h1>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 my-8">
+      <div className="grid grid-cols-1 md:grid-cols-2  gap-6 my-8">
         {booking?.map((book, index) => (
           <MyBookingCard key={index} book={book} onDelete={handelDeleteUi} />
         ))}

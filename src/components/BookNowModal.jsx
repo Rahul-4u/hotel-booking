@@ -4,7 +4,7 @@ import { AuthContext } from "../user/Authprovider";
 import axios from "axios";
 import { toast } from "react-toastify";
 
-export default function BookNowModal({ room, handleModal, roomId }) {
+export default function BookNowModal({ room, handleModal, daynamicId }) {
   const { name, photo, description, price } = room;
   const [bookingDate, setBookingDate] = useState("");
   const { user } = useContext(AuthContext);
@@ -21,7 +21,7 @@ export default function BookNowModal({ room, handleModal, roomId }) {
       price,
       photo,
       displayName,
-      roomId,
+      daynamicId,
       email,
       photoURL,
       bookingDate,

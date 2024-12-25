@@ -21,7 +21,7 @@ export default function MyBookingCard({ book, onDelete }) {
     photoURL,
     displayName,
     _id,
-    roomId,
+    daynamicId,
   } = book;
 
   const handleDelete = async (e) => {
@@ -46,48 +46,68 @@ export default function MyBookingCard({ book, onDelete }) {
   };
 
   return (
-    <div>
-      <div className="bg-white shadow-2xl p-4 mb-6">
-        <div className="flex flex-col  gap-4">
-          <div className="w-full">
-            <img
-              src={photo}
-              alt=""
-              className="rounded-xl h-80 w-full object-cover"
-            />
-          </div>
-          <div className="flex gap-4">
-            <div>
-              {" "}
-              <img className="h-10 w-10 rounded-full" src={photoURL} alt="" />
-            </div>
-            <div>
-              <p>{displayName}</p>
-              <h1 className=" font-bold text-xl">Room Name : {name}</h1>
-              <p>{roomtyp}</p>
-              <p>Price: ${price} </p>
-              <p>Date: {bookingDate} </p>
-            </div>
-          </div>
-          <div className="divider"></div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-            <NavLink
-              onClick={handleModal}
-              // to={"/rivew"}
-              className="btn bg-sky-400"
-            >
-              Rivew
-            </NavLink>
-            <NavLink to={`/update-booking/${_id}`} className="btn bg-sky-400">
-              Update
-            </NavLink>
-            <NavLink onClick={handleDelete} className="btn bg-sky-400">
-              Delete
-            </NavLink>
-          </div>
-        </div>
-      </div>
-      {modal && <UserRivew revId={roomId} setModal={setModal} />}
+    <div className="overflow-x-auto">
+      <table className="table border">
+        {/* head */}
+        <thead>
+          <tr>
+            <th></th>
+            <th>Room Details</th>
+            <th>Favorite Color</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {/* row 4 */}
+          <tr>
+            <td>
+              <div className="flex ">
+                <div className="w-44  rounded-lg ">
+                  <img
+                    className=" rounded-lg"
+                    src={photo}
+                    alt="Avatar Tailwind CSS Component"
+                  />
+                </div>
+              </div>
+            </td>
+            <td>
+              <h1 className="text-lg font-semibold">
+                {" "}
+                <span> Name :</span> {name}
+              </h1>
+              <span className=" font-semibold"> Price : {price} $</span>
+              <h1 className=" font-semibold">
+                {" "}
+                Booking Date : {bookingDate}
+              </h1>{" "}
+              <img
+                className="h-8 w-8 my-2 rounded-full"
+                src={photoURL}
+                alt=""
+              />
+            </td>
+
+            <td className="flex flex-col items-center justify-center space-y-2">
+              <NavLink
+                onClick={handleModal}
+                // to={"/rivew"}
+                className="btn bg-sky-400"
+              >
+                Rivew
+              </NavLink>
+              <NavLink to={`/update-booking/${_id}`} className="btn bg-sky-400">
+                Update
+              </NavLink>
+              <NavLink onClick={handleDelete} className="btn bg-sky-400">
+                Delete
+              </NavLink>
+            </td>
+          </tr>
+        </tbody>
+        {/* foot */}
+      </table>
+      {modal && <UserRivew daynamicId={daynamicId} setModal={setModal} />}
     </div>
   );
 }

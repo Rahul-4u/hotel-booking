@@ -20,8 +20,10 @@ export default function AddRoom() {
     const photo = from.photo.value;
     const available = from.available.value;
     const special = from.special.value;
+    const daynamicId = from.daynamicId.value;
 
     const addNewRoom = {
+      daynamicId,
       name,
       price,
       roomtyp,
@@ -186,6 +188,14 @@ export default function AddRoom() {
                 <input
                   type="text"
                   name="special"
+                  className="w-full p-3 border border-gray-300 rounded-md"
+                />
+              </div>
+              <div>
+                <label className="block text-gray-600">Daynamic Id</label>
+                <input
+                  type="text"
+                  name="daynamicId"
                   className="w-full p-3 border border-gray-300 rounded-md"
                 />
               </div>

@@ -6,7 +6,7 @@ import { AuthContext } from "../user/Authprovider";
 
 export default function RoomCard({ room }) {
   const { id } = useParams();
-  const { name, photo, description, price, roomtyp, _id } = room;
+  const { name, photo, description, price, roomtyp, _id, daynamicId } = room;
   const [reviews, setReviews] = useState([]);
   const [modal, setModal] = useState(false);
   const { user } = useContext(AuthContext);
@@ -16,20 +16,21 @@ export default function RoomCard({ room }) {
   useEffect(() => {
     const fetchReviews = async () => {
       try {
+        // roomsWithReviews/:daynamicId
         // Ensure correct URL with roomId parameter
         const res = await axios.get(
-          `http://localhost:8000/rivew?roomId=${_id}`
+          `http://localhost:8000/roomWithReviews/${daynamicId}`
         );
-        console.log(res.data);
+        console.log(res.data.reviews);
         if (res.status === 200) {
-          setReviews(res.data);
+          setReviews(res.data.reviews);
         }
       } catch (error) {
         console.error("Fetching reviews error", error);
       }
     };
     fetchReviews();
-  }, [_id]);
+  }, [daynamicId]);
 
   const handleModal = () => {
     if (!user || !user.email) {
@@ -65,7 +66,13 @@ export default function RoomCard({ room }) {
         </div>
       </div>
 
-      {modal && <BookNowModal room={room} handleModal={handleModal} />}
+      {modal && (
+        <BookNowModal
+          room={room}
+          daynamicId={daynamicId}
+          handleModal={handleModal}
+        />
+      )}
     </div>
   );
 }

@@ -5,7 +5,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
-export default function UserRivew({ setModal, revId }) {
+export default function UserRivew({ setModal, daynamicId, name }) {
   const { user } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
@@ -19,9 +19,10 @@ export default function UserRivew({ setModal, revId }) {
       displayName,
       timestamp,
       comment,
-      revId,
+      daynamicId,
       rating,
       photoURL,
+      name,
     };
 
     try {
