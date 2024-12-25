@@ -36,7 +36,11 @@ export default function MyBookingUpadate() {
     try {
       const response = await axios.put(
         `http://localhost:8000/my-booking/${id}`,
-        upBooking
+
+        upBooking,
+        {
+          withCredentials: true,
+        }
       );
       if (response.status === 200) {
         toast.success("Room added successfully");
