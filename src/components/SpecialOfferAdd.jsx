@@ -29,7 +29,7 @@ export default function SpecialOfferAdd() {
 
     try {
       const response = await axios.post(
-        "https://b10-a11-server-site.vercel.app/add-offer",
+        "http://localhost:8000/add-offer",
         newOffer
       );
       if (response.status === 200) {

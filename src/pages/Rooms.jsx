@@ -9,9 +9,7 @@ export default function Rooms() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await axios.get(
-          "https://b10-a11-server-site.vercel.app/add-room"
-        );
+        const res = await axios.get("http://localhost:8000/add-room");
         if (res.status === 200) {
           setRooms(res.data);
         }
@@ -25,7 +23,6 @@ export default function Rooms() {
   return (
     <div className="">
       <Header />
-      Rooms:{rooms.length}
       <div className="max-w-[1440px] mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:grid-cols-3">
           {rooms?.map((room, index) => (

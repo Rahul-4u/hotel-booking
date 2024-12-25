@@ -26,11 +26,8 @@ export default function UserRivew({ setModal, revId }) {
 
     try {
       const response = await axios.post(
-        "https://b10-a11-server-site.vercel.app/rivew",
-        addNewrivew,
-        {
-          withCredentials: true,
-        }
+        "http://localhost:8000/rivew",
+        addNewrivew
       );
       if (response.status === 200) {
         toast.success("Review submitted successfully");

@@ -29,7 +29,7 @@ export default function BookNowModal({ room, handleModal, roomId }) {
 
     try {
       const response = await axios.post(
-        "https://b10-a11-server-site.vercel.app/my-booking",
+        "http://localhost:8000/my-booking",
         myBooking
       );
       if (response.status === 200) {

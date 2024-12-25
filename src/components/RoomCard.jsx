@@ -18,7 +18,7 @@ export default function RoomCard({ room }) {
       try {
         // Ensure correct URL with roomId parameter
         const res = await axios.get(
-          `https://b10-a11-server-site.vercel.app/rivew?roomId=${_id}`
+          `http://localhost:8000/rivew?roomId=${_id}`
         );
         console.log(res.data);
         if (res.status === 200) {

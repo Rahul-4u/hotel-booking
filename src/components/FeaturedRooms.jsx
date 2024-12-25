@@ -8,11 +8,9 @@ const FeaturedRooms = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    axios
-      .get("https://b10-a11-server-site.vercel.app/featured-rooms")
-      .then((response) => {
-        setRooms(response.data);
-      });
+    axios.get("http://localhost:8000/featured-rooms").then((response) => {
+      setRooms(response.data);
+    });
   }, []);
 
   return (

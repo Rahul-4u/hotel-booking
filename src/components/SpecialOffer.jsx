@@ -41,9 +41,7 @@ export default function SpecialOffer() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await axios.get(
-          "https://b10-a11-server-site.vercel.app/offer"
-        );
+        const res = await axios.get("http://localhost:8000/offer");
         if (res.status === 200) {
           setCards(res.data);
         }

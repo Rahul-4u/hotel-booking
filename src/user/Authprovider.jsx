@@ -53,8 +53,6 @@ export default function Authprovider({ children }) {
   };
 
   const createUser = (email, password) => {
-    setLoading(true);
-
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
@@ -80,38 +78,38 @@ export default function Authprovider({ children }) {
   };
 
   useEffect(() => {
-    const unSubscribe = onAuthStateChanged(auth, async (curentUser) => {
-      setLoading(true);
-      if (curentUser?.email) {
-        setUser(curentUser);
-        try {
-          const { data } = await axios.post(
-            "https://b10-a11-server-site.vercel.app/jwt",
-            { email: curentUser.email },
-            { withCredentials: true }
-          );
-        } catch (error) {
-          console.error("Error fetching JWT token:", error);
-        }
+    const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+
+      console.log("state captured", currentUser?.email);
+
+      if (currentUser?.email) {
+        const user = { email: currentUser.email };
+
+        axios
+          .post("http://localhost:8000/jwt", user, { withCredentials: true })
+          .then((res) => {
+            console.log("login token", res.data);
+            setLoading(false);
+          });
       } else {
-        try {
-          const { data } = await axios.get(
-            "https://b10-a11-server-site.vercel.app/logout",
+        axios
+          .post(
+            "http://localhost:8000/logout",
+            {},
             {
               withCredentials: true,
             }
-          );
-          console.log("Logout response:", data.message);
-          setUser(null);
-        } catch (error) {
-          console.error("Error during logout request:", error);
-        }
+          )
+          .then((res) => {
+            console.log("logout", res.data);
+            setLoading(false);
+          });
       }
-      setLoading(false);
     });
 
     return () => {
-      unSubscribe();
+      unsubscribe();
     };
   }, []);
 
