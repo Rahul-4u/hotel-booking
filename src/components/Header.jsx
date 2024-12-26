@@ -1,10 +1,15 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { AuthContext } from "../user/Authprovider";
 import { FaRegUserCircle } from "react-icons/fa";
+import { CiMenuFries } from "react-icons/ci";
 
 export default function Header() {
   const { user, logOut } = useContext(AuthContext);
+  const [open, setOpen] = useState();
+  const handleTogle = () => {
+    setOpen(!open);
+  };
 
   const logoutHandle = () => {
     logOut();
@@ -69,7 +74,7 @@ export default function Header() {
           </NavLink>
         </div>
         {/* ---------------------------------------- */}
-        <div className="navbar-end flex gap-4">
+        <div className="navbar-end lg:flex hidden gap-4">
           {user?.email ? (
             <NavLink onClick={logoutHandle} className="btn bg-orange-400">
               logOut
@@ -99,7 +104,62 @@ export default function Header() {
             <FaRegUserCircle className="text-2xl" />
           )}
         </div>
+        <button
+          onClick={handleTogle}
+          className="navbar-end flex lg:hidden text-4xl "
+        >
+          {" "}
+          <CiMenuFries />{" "}
+        </button>
       </div>
+      {open && (
+        <div>
+          <div className="navbar-center nav-link nav lg:hidden  top-[60px] left-0 p-8 z-50 bg-slate-200 flex flex-col w-full  gap-4 absolute">
+            <NavLink
+              to={"/"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              Home
+            </NavLink>
+            <NavLink
+              to={"/rooms"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              Rooms
+            </NavLink>
+            <NavLink
+              to={"/add-room"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              Add Room
+            </NavLink>
+            <NavLink
+              to={"/special-offer"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              Offer Add
+            </NavLink>
+            <NavLink
+              to={"/myBooking"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              My Bookings
+            </NavLink>
+            <NavLink
+              to={"/gallery"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              Gallery{" "}
+            </NavLink>
+            <NavLink
+              to={"/contact"}
+              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
+            >
+              Contact Us{" "}
+            </NavLink>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

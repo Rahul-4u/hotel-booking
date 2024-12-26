@@ -7,7 +7,7 @@ export default function FAQ() {
     setOpen(open === index ? null : index);
   };
   return (
-    <div className="md:flex md:my-20 flex items-center">
+    <div className="md:flex md:my-20  items-center">
       <div className="md:w-1/2 ">
         <img
           src="https://i.ibb.co.com/9HV9wP9/download-28.jpg"
