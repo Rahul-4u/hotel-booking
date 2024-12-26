@@ -56,8 +56,8 @@ export default function RomeDeatils() {
 
             <div className="card-body">
               <p> {roomDetails.description}</p>
-              <div>
-                <div className=" md:p-5">
+              <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
+                <div className=" md:p-5 ">
                   <table className="table  ">
                     {/* head */}
                     <h1 className="text-3xl font-semibold my-4">Details</h1>
@@ -122,6 +122,37 @@ export default function RomeDeatils() {
                       </tr>
                     </tbody>
                   </table>
+                </div>
+                <div>
+                  {reviews?.length > 0 && (
+                    <div>
+                      {reviews?.map((review, index) => (
+                        <div key={index}>
+                          <div className="card bg-base-100 shadow-xl">
+                            <div className=" md:flex gap-4 my-4   bg-white p-2 shadow-xl">
+                              <div>
+                                {" "}
+                                <img
+                                  className="h-14 w-14 rounded-full"
+                                  src={review.photoURL}
+                                  alt=""
+                                />
+                              </div>
+                              <div>
+                                {" "}
+                                <h2 className="card-title">
+                                  {review.displayName}
+                                </h2>
+                                <p>{review.timestamp}</p>
+                                <p>{review.comment}</p>
+                                <p>{review.rating} ⭐</p>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  )}
                 </div>
               </div>
             </div>
