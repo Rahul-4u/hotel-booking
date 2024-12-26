@@ -1,13 +1,24 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Header from "./Header";
+import { AuthContext } from "../user/Authprovider";
+import BookNowModal from "./BookNowModal";
 
 export default function RomeDeatils() {
   const { id } = useParams();
   const [roomDetails, setDetails] = useState(null);
   const [reviews, setRivews] = useState([]);
+  const [modal, setModal] = useState(false);
+  const { user } = useContext(AuthContext);
+  const [privet, setPrivet] = useState(false);
 
+  const handleModal = () => {
+    if (!user || !user.email) {
+      setPrivet(true);
+    }
+    setModal(!modal);
+  };
   // --------------------daynamic details
   useEffect(() => {
     const fetchBooking = async () => {
@@ -47,7 +58,7 @@ export default function RomeDeatils() {
       <Header />
       <div>
         {roomDetails && (
-          <div className="card bg-base-100  shadow-xl md:w-8/12 mx-auto my-10">
+          <div className="card bg-base-100  shadow-xl lg:w-8/12 mx-auto my-10">
             <h1 className="text-4xl font-semibold text-center mt-16 mb-8">
               {roomDetails.name}
             </h1>
@@ -56,7 +67,7 @@ export default function RomeDeatils() {
 
             <div className="card-body">
               <p> {roomDetails.description}</p>
-              <div className="grid md:grid-cols-2 grid-cols-1 gap-8">
+              <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
                 <div className=" md:p-5 ">
                   <table className="table  ">
                     {/* head */}
@@ -122,6 +133,12 @@ export default function RomeDeatils() {
                       </tr>
                     </tbody>
                   </table>
+                  <button
+                    onClick={handleModal}
+                    className="btn my-5 w-full bg-sky-600 text-white"
+                  >
+                    Book now
+                  </button>
                 </div>
                 <div>
                   {reviews?.length > 0 && (
@@ -159,6 +176,13 @@ export default function RomeDeatils() {
           </div>
         )}
       </div>
+      {modal && (
+        <BookNowModal
+          room={roomDetails}
+          daynamicId={roomDetails.daynamicId}
+          handleModal={handleModal}
+        />
+      )}
     </div>
   );
 }
