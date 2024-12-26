@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import axios from "axios";
 import MyBookingCard from "../components/MyBookingCard";
+import Footer from "../components/Footer";
 
 export default function MyBooking() {
   const [booking, setBooking] = useState([]);
@@ -38,6 +39,7 @@ export default function MyBooking() {
           <MyBookingCard key={index} book={book} onDelete={handelDeleteUi} />
         ))}
       </div>
+      <Footer />
     </div>
   );
 }

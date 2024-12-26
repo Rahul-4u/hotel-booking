@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import RoomCard from "../components/RoomCard";
 import Header from "../components/Header";
 import RomeDeatils from "../components/RomeDeatils";
+import Footer from "../components/Footer";
 
 export default function Rooms() {
   const [rooms, setRooms] = useState([]);
@@ -66,6 +67,7 @@ export default function Rooms() {
           ))}
         </div>
       </div>
+      <Footer />
     </div>
   );
 }

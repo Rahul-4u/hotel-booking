@@ -2,6 +2,7 @@ import { toast } from "react-toastify";
 import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 export default function AddRoom() {
   const navigate = useNavigate();
@@ -210,6 +211,7 @@ export default function AddRoom() {
           </form>
         </div>
       </div>
+      <Footer />
     </div>
   );
 }
