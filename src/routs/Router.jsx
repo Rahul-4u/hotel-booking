@@ -18,6 +18,7 @@ import ErrorPage from "../pages/ErrorPage";
 import RomeDeatils from "../components/RomeDeatils";
 import PrivacyPolicy from "../components/PrivacyPolicy";
 import TermsAndConditions from "../components/TermsAndConditions";
+import ServisesAdd from "../components/ServisesAdd";
 
 const Router = createBrowserRouter([
   {
@@ -87,6 +88,10 @@ const Router = createBrowserRouter([
   {
     path: "/trems",
     element: <TermsAndConditions />,
+  },
+  {
+    path: "/serives",
+    element: <ServisesAdd />,
   },
   {
     path: "*",

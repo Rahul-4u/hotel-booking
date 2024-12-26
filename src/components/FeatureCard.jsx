@@ -2,7 +2,7 @@ export default function FeatureCard({ room }) {
   const { name, photo, description, price, reviews, roomtyp } = room;
 
   const shortDescription =
-    description.length > 80
+    description?.length > 80
       ? description.substring(0, 85) + "..."
       : description;
   return (

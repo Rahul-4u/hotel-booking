@@ -8,6 +8,7 @@ import ClientReview from "../components/ClientReview";
 import SpecialOffer from "../components/SpecialOffer"; // Import SpecialOffer
 import Footer from "../components/Footer";
 import FAQ from "../components/FAQ";
+import OuerServices from "../components/OuerServices";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
@@ -32,6 +33,9 @@ export default function Home() {
         </section>
         <section>
           <ClientReview />
+        </section>
+        <section>
+          <OuerServices />
         </section>
         <section>
           <FAQ />
