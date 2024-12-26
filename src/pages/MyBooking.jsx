@@ -9,9 +9,12 @@ export default function MyBooking() {
   useEffect(() => {
     const fetchBooking = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/my-booking", {
-          withCredentials: true,
-        });
+        const res = await axios.get(
+          "https://b10-a11-server-site.vercel.app/my-booking",
+          {
+            withCredentials: true,
+          }
+        );
         if (res.status === 200) {
           setBooking(res.data);
         }

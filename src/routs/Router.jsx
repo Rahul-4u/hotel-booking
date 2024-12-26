@@ -16,6 +16,8 @@ import PrivateRoute from "./PrivateRoute";
 import BookNowModal from "../components/BookNowModal";
 import ErrorPage from "../pages/ErrorPage";
 import RomeDeatils from "../components/RomeDeatils";
+import PrivacyPolicy from "../components/PrivacyPolicy";
+import TermsAndConditions from "../components/TermsAndConditions";
 
 const Router = createBrowserRouter([
   {
@@ -77,6 +79,14 @@ const Router = createBrowserRouter([
   {
     path: "/room-details/:id",
     element: <RomeDeatils />,
+  },
+  {
+    path: "/privecy",
+    element: <PrivacyPolicy />,
+  },
+  {
+    path: "/trems",
+    element: <TermsAndConditions />,
   },
   {
     path: "*",

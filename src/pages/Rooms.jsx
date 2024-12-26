@@ -10,7 +10,9 @@ export default function Rooms() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/add-room");
+        const res = await axios.get(
+          "https://b10-a11-server-site.vercel.app/add-room"
+        );
         if (res.status === 200) {
           setRooms(res.data);
         }

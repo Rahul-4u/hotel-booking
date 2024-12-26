@@ -37,7 +37,9 @@ export default function ClientReview() {
   useEffect(() => {
     const fetchRooms = async () => {
       try {
-        const res = await axios.get("http://localhost:8000/filter-rivew");
+        const res = await axios.get(
+          "https://b10-a11-server-site.vercel.app/filter-rivew"
+        );
         if (res.status === 200) {
           setCards(res.data);
         }

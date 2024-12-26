@@ -6,6 +6,7 @@ import HotelMap from "../components/HotelMap";
 import FeaturedRooms from "../components/FeaturedRooms";
 import ClientReview from "../components/ClientReview";
 import SpecialOffer from "../components/SpecialOffer"; // Import SpecialOffer
+import Footer from "../components/Footer";
 
 export default function Home() {
   const { user } = useContext(AuthContext);
@@ -32,6 +33,9 @@ export default function Home() {
           <ClientReview />
         </section>
       </main>
+      <footer>
+        <Footer />
+      </footer>
     </div>
   );
 }

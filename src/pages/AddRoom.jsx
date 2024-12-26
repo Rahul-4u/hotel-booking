@@ -39,7 +39,7 @@ export default function AddRoom() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/add-room",
+        "https://b10-a11-server-site.vercel.app/add-room",
         addNewRoom
       );
       if (response.status === 200) {

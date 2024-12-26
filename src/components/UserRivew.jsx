@@ -27,7 +27,7 @@ export default function UserRivew({ setModal, daynamicId, name }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/rivew",
+        "https://b10-a11-server-site.vercel.app/rivew",
         addNewrivew
       );
       if (response.status === 200) {

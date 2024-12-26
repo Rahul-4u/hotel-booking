@@ -23,7 +23,9 @@ export default function RomeDeatils() {
   useEffect(() => {
     const fetchBooking = async () => {
       try {
-        const res = await axios.get(`http://localhost:8000/add-room/${id}`);
+        const res = await axios.get(
+          `https://b10-a11-server-site.vercel.app/add-room/${id}`
+        );
         if (res.status === 200) {
           setDetails(res.data);
         }
@@ -40,7 +42,7 @@ export default function RomeDeatils() {
       const fetchReviews = async () => {
         try {
           const res = await axios.get(
-            `http://localhost:8000/roomWithReviews/${roomDetails.daynamicId}`
+            `https://b10-a11-server-site.vercel.app/roomWithReviews/${roomDetails.daynamicId}`
           );
           if (res.status === 200) {
             setRivews(res.data.reviews);

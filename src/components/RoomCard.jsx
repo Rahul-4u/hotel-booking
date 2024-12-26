@@ -18,7 +18,7 @@ export default function RoomCard({ room }) {
     const fetchReviews = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:8000/roomWithReviews/${daynamicId}`
+          `https://b10-a11-server-site.vercel.app/roomWithReviews/${daynamicId}`
         );
         if (res.status === 200) {
           setReviews(res.data.reviews);

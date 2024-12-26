@@ -87,7 +87,9 @@ export default function Authprovider({ children }) {
         const user = { email: currentUser.email };
 
         axios
-          .post("http://localhost:8000/jwt", user, { withCredentials: true })
+          .post("https://b10-a11-server-site.vercel.app/jwt", user, {
+            withCredentials: true,
+          })
           .then((res) => {
             console.log("login token", res.data);
             setLoading(false);
@@ -95,7 +97,7 @@ export default function Authprovider({ children }) {
       } else {
         axios
           .post(
-            "http://localhost:8000/logout",
+            "https://b10-a11-server-site.vercel.app/logout",
             {},
             {
               withCredentials: true,

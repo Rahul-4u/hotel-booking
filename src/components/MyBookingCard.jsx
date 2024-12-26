@@ -27,7 +27,7 @@ export default function MyBookingCard({ book, onDelete }) {
   const handleDelete = async (e) => {
     try {
       const response = await axios.delete(
-        `http://localhost:8000/my-booking/${_id}`,
+        `https://b10-a11-server-site.vercel.app/my-booking/${_id}`,
         {
           withCredentials: true,
         }

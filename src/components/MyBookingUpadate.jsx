@@ -19,7 +19,7 @@ export default function MyBookingUpadate() {
     const fetchBooking = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/my-booking/${id}`
+          `https://b10-a11-server-site.vercel.app/my-booking/${id}`
         );
         if (response.status === 200) {
           setUpBooking(response.data);
@@ -35,7 +35,7 @@ export default function MyBookingUpadate() {
     e.preventDefault();
     try {
       const response = await axios.put(
-        `http://localhost:8000/my-booking/${id}`,
+        `https://b10-a11-server-site.vercel.app/my-booking/${id}`,
 
         upBooking,
         {
