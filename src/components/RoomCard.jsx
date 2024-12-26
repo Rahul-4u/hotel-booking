@@ -42,7 +42,7 @@ export default function RoomCard({ room }) {
   }
 
   const shortDescription =
-    description.length > 80
+    description?.length > 80
       ? description.substring(0, 85) + "..."
       : description;
 
@@ -59,7 +59,7 @@ export default function RoomCard({ room }) {
               <p>{shortDescription}</p>
               <p className="font-semibold">Room Type: {roomtyp}</p>
               <p className="font-semibold">Price: $ {price}</p>
-              <p className="font-semibold">Reviews: {reviews.length}</p>
+              <p className="font-semibold">Reviews: {reviews?.length}</p>
             </div>
           </div>
         </NavLink>

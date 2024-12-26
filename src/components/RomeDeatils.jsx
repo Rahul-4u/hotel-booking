@@ -68,7 +68,7 @@ export default function RomeDeatils() {
             <img className="p-10" src={roomDetails.photo} alt="Shoes" />
 
             <div className="card-body">
-              <p> {roomDetails.description}</p>
+              <p> {roomDetails?.description}</p>
               <div className="grid lg:grid-cols-2 grid-cols-1 gap-8">
                 <div className=" md:p-5 ">
                   <table className="table  ">

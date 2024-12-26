@@ -39,7 +39,7 @@ export default function Rooms() {
     <div className="">
       <Header />
       <div className="max-w-[1440px] mx-auto">
-        <div className="p-4 flex gap-4">
+        <div className="p-4 md:flex block space-y-3 gap-4">
           <input
             type="number"
             value={minPrice}

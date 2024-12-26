@@ -16,7 +16,7 @@ export default function Header() {
   };
 
   return (
-    <div className="bg-slate-300">
+    <div className="bg-slate-300  sticky top-0 z-50 backdrop-blur-md opacity-95">
       <div className=" navbar  max-w-[1440px] mx-auto ">
         <div className="navbar-start flex gap-4">
           <img
@@ -52,25 +52,13 @@ export default function Header() {
             to={"/special-offer"}
             className={({ isActive }) => (isActive ? "text-orange-500" : "")}
           >
-            Offer Add
+            Add Offer
           </NavLink>
           <NavLink
             to={"/myBooking"}
             className={({ isActive }) => (isActive ? "text-orange-500" : "")}
           >
             My Bookings
-          </NavLink>
-          <NavLink
-            to={"/gallery"}
-            className={({ isActive }) => (isActive ? "text-orange-500" : "")}
-          >
-            Gallery{" "}
-          </NavLink>
-          <NavLink
-            to={"/contact"}
-            className={({ isActive }) => (isActive ? "text-orange-500" : "")}
-          >
-            Contact Us{" "}
           </NavLink>
         </div>
         {/* ---------------------------------------- */}
@@ -137,25 +125,13 @@ export default function Header() {
               to={"/special-offer"}
               className={({ isActive }) => (isActive ? "text-orange-500" : "")}
             >
-              Offer Add
+              Add Offer
             </NavLink>
             <NavLink
               to={"/myBooking"}
               className={({ isActive }) => (isActive ? "text-orange-500" : "")}
             >
               My Bookings
-            </NavLink>
-            <NavLink
-              to={"/gallery"}
-              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
-            >
-              Gallery{" "}
-            </NavLink>
-            <NavLink
-              to={"/contact"}
-              className={({ isActive }) => (isActive ? "text-orange-500" : "")}
-            >
-              Contact Us{" "}
             </NavLink>
           </div>
         </div>
