@@ -1,5 +1,25 @@
+import axios from "axios";
+import { useEffect, useState } from "react";
+
 export default function FeatureCard({ room }) {
-  const { name, photo, description, price, reviews, roomtyp } = room;
+  const { name, photo, description, price, daynamicId, roomtyp } = room;
+  const [reviews, setReviews] = useState([]);
+
+  useEffect(() => {
+    const fetchReviews = async () => {
+      try {
+        const res = await axios.get(
+          `https://b10-a11-server-site.vercel.app/roomWithReviews/${daynamicId}`
+        );
+        if (res.status === 200) {
+          setReviews(res.data.reviews);
+        }
+      } catch (error) {
+        console.error("Fetching reviews error", error);
+      }
+    };
+    fetchReviews();
+  }, [daynamicId]);
 
   const shortDescription =
     description?.length > 80
@@ -16,7 +36,7 @@ export default function FeatureCard({ room }) {
           <p>{shortDescription}</p>
           <p className="font-semibold">Room Type: {roomtyp}</p>
           <p className="font-semibold">Price : $ {price}</p>
-          <p className="font-semibold">Reviews: 0 </p>
+          <p className="font-semibold">Reviews:{reviews?.length}</p>
         </div>
       </div>
     </div>
