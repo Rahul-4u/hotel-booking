@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import UserRivew from "./UserRivew";
+import Swal from "sweetalert2";
 
 export default function MyBookingCard({ book, onDelete }) {
   const [modal, setModal] = useState(false);
@@ -25,23 +26,37 @@ export default function MyBookingCard({ book, onDelete }) {
   } = book;
 
   const handleDelete = async (e) => {
-    try {
-      const response = await axios.delete(
-        `https://b10-a11-server-site.vercel.app/my-booking/${_id}`,
-        {
-          withCredentials: true,
+    const result = await Swal.fire({
+      title: "Are you sure?",
+      text: "Do you want to delete this booking?",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+      cancelButtonText: "No, cancel!",
+    });
+
+    if (result.isConfirmed) {
+      try {
+        const response = await axios.delete(
+          `https://b10-a11-server-site.vercel.app/my-booking/${_id}`,
+          {
+            withCredentials: true,
+          }
+        );
+        if (response.status === 200) {
+          toast.success("Room deleted successfully");
+          onDelete(_id);
+        } else {
+          toast.error("Failed to delete room");
         }
-      );
-      if (response.status === 200) {
-        toast.success("Room added successfully");
-        // navigate("/");
-        // e.target.reset();
-        onDelete(_id);
-      } else {
-        toast.error("Failed to add room");
+      } catch (error) {
+        console.error("Error deleting room:", error);
+        toast.error("Something went wrong!");
       }
-    } catch (error) {
-      console.error("error add room", error);
+    } else {
+      toast.info("Room deletion canceled.");
     }
   };
 
