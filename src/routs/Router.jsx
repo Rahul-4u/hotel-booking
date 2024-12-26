@@ -15,6 +15,7 @@ import SpecialOfferAdd from "../components/SpecialOfferAdd";
 import PrivateRoute from "./PrivateRoute";
 import BookNowModal from "../components/BookNowModal";
 import ErrorPage from "../pages/ErrorPage";
+import RomeDeatils from "../components/RomeDeatils";
 
 const Router = createBrowserRouter([
   {
@@ -72,6 +73,10 @@ const Router = createBrowserRouter([
   {
     path: "/special-offer",
     element: <SpecialOfferAdd />,
+  },
+  {
+    path: "/room-details/:id",
+    element: <RomeDeatils />,
   },
   {
     path: "*",

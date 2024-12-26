@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import BookNowModal from "./BookNowModal";
 import axios from "axios";
-import { Navigate, useParams } from "react-router-dom";
+import { Navigate, NavLink, useParams } from "react-router-dom";
 import { AuthContext } from "../user/Authprovider";
 
 export default function RoomCard({ room }) {
@@ -11,17 +11,15 @@ export default function RoomCard({ room }) {
   const [modal, setModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [privet, setPrivet] = useState(false);
+  const [navmenu, setNavmeny] = useState(true);
 
   // Fetch reviews and filter by room _id
   useEffect(() => {
     const fetchReviews = async () => {
       try {
-        // roomsWithReviews/:daynamicId
-        // Ensure correct URL with roomId parameter
         const res = await axios.get(
           `http://localhost:8000/roomWithReviews/${daynamicId}`
         );
-        console.log(res.data.reviews);
         if (res.status === 200) {
           setReviews(res.data.reviews);
         }
@@ -38,6 +36,7 @@ export default function RoomCard({ room }) {
     }
     setModal(!modal);
   };
+
   if (privet) {
     return <Navigate to={"/login"} />;
   }
@@ -49,21 +48,24 @@ export default function RoomCard({ room }) {
 
   return (
     <div>
-      <div className="card bg-base-100 shadow-xl">
-        <figure>
-          <img className="h-96" src={photo} alt="Room" />
-        </figure>
-        <div className="card-body">
-          <h2 className="card-title">{name}</h2>
-          <p>{shortDescription}</p>
-          <p className="font-semibold">Room Type: {roomtyp}</p>
-          <p className="font-semibold">Price: $ {price}</p>
-          <p className="font-semibold">Reviews: {reviews.length}</p>{" "}
-          {/* Show filtered reviews count */}
-          <button onClick={handleModal} className="btn bg-sky-600 text-white">
-            Book now
-          </button>
-        </div>
+      <div className="card shadow-xl border bg-slate-200 my-8 p-4 rounded-xl">
+        <NavLink to={`/room-details/${_id}`}>
+          <div>
+            <figure>
+              <img className="h-96 rounded-xl" src={photo} alt="Room" />
+            </figure>
+            <div className="card-body bg-slate-200">
+              <h2 className="card-title">{name}</h2>
+              <p>{shortDescription}</p>
+              <p className="font-semibold">Room Type: {roomtyp}</p>
+              <p className="font-semibold">Price: $ {price}</p>
+              <p className="font-semibold">Reviews: {reviews.length}</p>
+            </div>
+          </div>
+        </NavLink>
+        <button onClick={handleModal} className="btn bg-sky-600 text-white">
+          Book now
+        </button>
       </div>
 
       {modal && (

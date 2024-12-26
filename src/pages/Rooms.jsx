@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import RoomCard from "../components/RoomCard";
 import Header from "../components/Header";
+import RomeDeatils from "../components/RomeDeatils";
 
 export default function Rooms() {
   const [rooms, setRooms] = useState([]);
