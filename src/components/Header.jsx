@@ -6,7 +6,7 @@ import { CiMenuFries } from "react-icons/ci";
 
 export default function Header() {
   const { user, logOut } = useContext(AuthContext);
-  const [open, setOpen] = useState();
+  const [open, setOpen] = useState(false);
   const handleTogle = () => {
     setOpen(!open);
   };
@@ -16,19 +16,20 @@ export default function Header() {
   };
 
   return (
-    <div className="bg-slate-300  sticky top-0 z-50 backdrop-blur-md opacity-95">
-      <div className=" navbar  max-w-[1440px] mx-auto ">
+    <div className="bg-primary fixed top-0 left-0 right-0 z-50 backdrop-blur-md opacity-95 w-full">
+      <div className="navbar max-w-[1440px] mx-auto px-4">
         <div className="navbar-start flex gap-4">
           <img
-            className="h-12 w-12  rounded-full"
+            className="h-12 w-12 rounded-full"
             src="https://i.ibb.co.com/k1Lnzrf/images.png"
-            alt=""
+            alt="Logo"
           />
-          <h1 className="font-bold ">
-            HOTLE <span className=" text-orange-500">HAVEN</span>
+          <h1 className="font-bold">
+            HOTEL <span className="text-orange-500">HAVEN</span>
           </h1>
         </div>
-        {/* ------------------------------------ */}
+
+        {/* Desktop Navbar Links */}
         <div className="navbar-center lg:flex gap-4 hidden">
           <NavLink
             to={"/"}
@@ -61,7 +62,8 @@ export default function Header() {
             My Bookings
           </NavLink>
         </div>
-        {/* ---------------------------------------- */}
+
+        {/* Login/Logout Button and User Profile */}
         <div className="navbar-end lg:flex hidden gap-4">
           {user?.email ? (
             <NavLink onClick={logoutHandle} className="btn bg-orange-400">
@@ -69,7 +71,6 @@ export default function Header() {
             </NavLink>
           ) : (
             <NavLink to={"/login"} className="btn bg-orange-400">
-              {" "}
               <button>Login</button>
             </NavLink>
           )}
@@ -92,17 +93,20 @@ export default function Header() {
             <FaRegUserCircle className="text-2xl" />
           )}
         </div>
+
+        {/* Mobile Navbar Toggle */}
         <button
           onClick={handleTogle}
-          className="navbar-end flex lg:hidden text-4xl "
+          className="navbar-end flex lg:hidden text-4xl"
         >
-          {" "}
-          <CiMenuFries />{" "}
+          <CiMenuFries />
         </button>
       </div>
+
+      {/* Mobile Dropdown Menu */}
       {open && (
         <div>
-          <div className="navbar-center nav-link nav lg:hidden  top-[60px] left-0 p-8 z-50 bg-slate-200 flex flex-col w-full  gap-4 absolute">
+          <div className="absolute top-[60px] left-0 w-full z-40 bg-slate-200 p-8 gap-4">
             <NavLink
               to={"/"}
               className={({ isActive }) => (isActive ? "text-orange-500" : "")}

@@ -1,5 +1,8 @@
 {
   "projects": {
-    "default": "b10-a11-cb71f"
-  }
+    "default": "b10-a11-cb71f",
+    "y": "b10-a11-cb71f"
+  },
+  "targets": {},
+  "etags": {}
 }
