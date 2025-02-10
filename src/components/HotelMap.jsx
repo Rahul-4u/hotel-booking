@@ -1,6 +1,6 @@
 export default function HotelMap() {
   return (
-    <div className="map-secation bg-gray-100 py-8">
+    <div className="map-secation bg-gray-100 py-8  max-w-[1440px] mx-auto">
       <h2 className="text-center text-4xl font-bold mb-8">
         Our Hotel Location
       </h2>

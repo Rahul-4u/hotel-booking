@@ -16,7 +16,7 @@ const FeaturedRooms = () => {
   }, []);
 
   return (
-    <div className="featured-rooms">
+    <div className="featured-rooms max-w-[1440px] mx-auto">
       <h2 className="text-2xl font-bold text-center">Featured Rooms</h2>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {rooms?.map((room, index) => (

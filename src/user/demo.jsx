@@ -23,7 +23,7 @@ export default function Register() {
     if (
       !/[A-Z]/.test(password) ||
       !/[a-z]/.test(password) ||
-      password?.length < 6
+      password.length < 6
     ) {
       setError(
         "Password must include at least one uppercase, one lowercase letter, and be at least 6 characters long."

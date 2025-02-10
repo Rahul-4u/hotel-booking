@@ -54,7 +54,6 @@ export default function RomeDeatils() {
       fetchReviews();
     }
   }, [roomDetails]);
-
   return (
     <div>
       <Header />

@@ -42,7 +42,7 @@ export default function RoomCard({ room }) {
   }
 
   const shortDescription =
-    description?.length > 80
+    description.length > 80
       ? description.substring(0, 85) + "..."
       : description;
 

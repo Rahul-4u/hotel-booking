@@ -32,7 +32,7 @@ export default function MyBooking() {
   return (
     <div>
       <Header />
-      <h1>Booking : {booking?.length}</h1>
+      <h1>Booking : {booking.length}</h1>
 
       <div className="grid grid-cols-1 md:grid-cols-2  gap-6 my-8">
         {booking?.map((book, index) => (

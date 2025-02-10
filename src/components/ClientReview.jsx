@@ -50,7 +50,7 @@ export default function ClientReview() {
     fetchRooms();
   }, []);
   return (
-    <div className="">
+    <div className=" max-w-[1440px] mx-auto">
       <div>
         <h1 className="text-3xl font-bold my-10 text-center">Client Review</h1>
         <div>
