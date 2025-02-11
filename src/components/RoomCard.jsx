@@ -11,9 +11,8 @@ export default function RoomCard({ room }) {
   const [modal, setModal] = useState(false);
   const { user } = useContext(AuthContext);
   const [privet, setPrivet] = useState(false);
-  const [navmenu, setNavmeny] = useState(true);
 
-  // Fetch reviews and filter by room _id
+  // Fetch reviews and filter by room ID
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -21,7 +20,7 @@ export default function RoomCard({ room }) {
           `https://b10-a11-server-site.vercel.app/roomWithReviews/${daynamicId}`
         );
         if (res.status === 200) {
-          setReviews(res.data.reviews);
+          setReviews(res.data.reviews || []);
         }
       } catch (error) {
         console.error("Fetching reviews error", error);
@@ -30,44 +29,70 @@ export default function RoomCard({ room }) {
     fetchReviews();
   }, [daynamicId]);
 
+  // Handle modal opening
   const handleModal = () => {
     if (!user || !user.email) {
       setPrivet(true);
+    } else {
+      setModal(!modal);
     }
-    setModal(!modal);
   };
 
+  // Redirect to login if user is not authenticated
   if (privet) {
     return <Navigate to={"/login"} />;
   }
 
+  // Shorten long descriptions
   const shortDescription =
-    description.length > 80
+    description && description.length > 85
       ? description.substring(0, 85) + "..."
-      : description;
+      : description || "No description available.";
 
   return (
-    <div>
-      <div className="card shadow-xl border bg-slate-200 my-8 p-4 rounded-xl">
+    <div className="max-w-lg mx-auto">
+      <div className="bg-white shadow-lg border border-gray-200 rounded-xl overflow-hidden transition transform hover:scale-105 duration-300">
         <NavLink to={`/room-details/${_id}`}>
-          <div>
-            <figure>
-              <img className="h-96 rounded-xl" src={photo} alt="Room" />
-            </figure>
-            <div className="card-body bg-slate-200">
-              <h2 className="card-title">{name}</h2>
-              <p>{shortDescription}</p>
-              <p className="font-semibold">Room Type: {roomtyp}</p>
-              <p className="font-semibold">Price: $ {price}</p>
-              <p className="font-semibold">Reviews: {reviews?.length}</p>
+          <figure>
+            <img
+              className="w-full h-72 object-cover"
+              src={photo || "https://via.placeholder.com/400"}
+              alt={name || "Room"}
+            />
+          </figure>
+          <div className="p-6 bg-slate-100">
+            <h2 className="text-xl font-semibold text-gray-800">
+              {name || "Unknown Room"}
+            </h2>
+            <p className="text-gray-600 text-sm mt-2">{shortDescription}</p>
+
+            {/* Room Type & Price */}
+            <div className="flex justify-between items-center mt-4">
+              <span className="text-sm font-semibold text-white bg-blue-600 px-3 py-1 rounded-full">
+                {roomtyp || "Unknown Type"}
+              </span>
+              <span className="text-lg font-bold text-green-600">
+                ${price || "N/A"}
+              </span>
             </div>
+
+            {/* Reviews Count */}
+            <p className="mt-3 text-gray-700 font-medium">
+              Reviews: {reviews.length}
+            </p>
           </div>
         </NavLink>
-        <button onClick={handleModal} className="btn bg-sky-600 text-white">
-          Book now
+
+        {/* Book Now Button */}
+        <button
+          onClick={handleModal}
+          className="w-full bg-blue-500 text-white py-3 font-semibold hover:bg-blue-600 transition"
+        >
+          Book Now
         </button>
       </div>
 
+      {/* Modal */}
       {modal && (
         <BookNowModal
           room={room}
