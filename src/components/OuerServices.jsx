@@ -1,11 +1,13 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
+import { AuthContext } from "../user/Authprovider";
 
 export default function OurServices() {
   const [services, setServices] = useState([]);
   const [loading, setLoading] = useState(true);
   const [title, setTitle] = useState("Our Services & Amenities");
+  const { darkMode } = useContext(AuthContext);
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -32,8 +34,16 @@ export default function OurServices() {
   }, []);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
-      <h1 className="text-4xl font-semibold text-center text-gray-800 mb-8">
+    <div
+      className={`max-w-7xl mx-auto px-4 py-10 ${
+        darkMode ? "bg-gray-900" : "bg-white"
+      }`}
+    >
+      <h1
+        className={`text-4xl font-semibold text-center ${
+          darkMode ? "text-white" : "text-gray-800"
+        } mb-8`}
+      >
         {title}
       </h1>
 
@@ -46,7 +56,9 @@ export default function OurServices() {
           {services.map((service, index) => (
             <div
               key={index}
-              className="bg-white shadow-lg rounded-lg p-6 text-center"
+              className={`${
+                darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
+              } shadow-lg rounded-lg p-6 text-center`}
             >
               <figure className="flex justify-center">
                 <img
@@ -56,16 +68,28 @@ export default function OurServices() {
                 />
               </figure>
               <div className="mt-4">
-                <h2 className="text-xl font-semibold text-gray-900">
+                <h2
+                  className={`text-xl font-semibold ${
+                    darkMode ? "text-white" : "text-gray-900"
+                  }`}
+                >
                   {service.taitel || "Untitled Service"}
                 </h2>
-                <p className="text-gray-600 mt-2">
+                <p
+                  className={`${
+                    darkMode ? "text-gray-300" : "text-gray-600"
+                  } mt-2`}
+                >
                   {service.dec || "No description available."}
                 </p>
                 <div className="mt-4">
                   <NavLink
                     to="/rooms"
-                    className="text-blue-500 hover:text-blue-700 font-medium"
+                    className={`${
+                      darkMode
+                        ? "text-blue-300 hover:text-blue-400"
+                        : "text-blue-500 hover:text-blue-700"
+                    } font-medium`}
                   >
                     View All Rooms →
                   </NavLink>
@@ -75,7 +99,11 @@ export default function OurServices() {
           ))}
         </div>
       ) : (
-        <div className="text-center text-gray-500 text-lg mt-6">
+        <div
+          className={`text-center ${
+            darkMode ? "text-gray-300" : "text-gray-500"
+          } text-lg mt-6`}
+        >
           No services available at the moment. Please check back later!
         </div>
       )}
