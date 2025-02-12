@@ -11,11 +11,13 @@ import { createContext, useEffect, useState } from "react";
 import auth from "./Firebase.config";
 import { toast } from "react-toastify";
 import axios from "axios";
+import useDarkMode from "../coustomHock/useDarkMode";
 
 export const AuthContext = createContext();
 export default function Authprovider({ children }) {
   const [user, setUser] = useState();
   const [loading, setLoading] = useState(false);
+  const [darkMode, setDarkMode] = useDarkMode();
 
   const googleprovider = new GoogleAuthProvider();
 
@@ -75,6 +77,8 @@ export default function Authprovider({ children }) {
     login,
     logOut,
     updateUserProfile,
+    darkMode,
+    setDarkMode,
   };
 
   useEffect(() => {

@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 
 export default function UserRivew({ setModal, daynamicId, name }) {
-  const { user } = useContext(AuthContext);
+  const { user, darkMode } = useContext(AuthContext);
   const [rating, setRating] = useState(0);
   const navigate = useNavigate();
   const { displayName, photoURL } = user || {};
@@ -44,11 +44,15 @@ export default function UserRivew({ setModal, daynamicId, name }) {
   };
 
   return (
-    <div className="fixed z-50  top-0 bottom-0 left-0 w-full h-full   bg-black bg-opacity-50 flex  justify-center items-center">
-      <div className="w-1/2 mx-auto  min-h-48 my-36 bg-slate-400 shadow-lg rounded-xl">
+    <div className="fixed z-50 top-0 bottom-0 left-0 w-full h-full bg-black bg-opacity-50 flex justify-center items-center">
+      <div
+        className={`w-1/2 mx-auto min-h-48 my-36 shadow-lg rounded-xl p-6 transition-all ${
+          darkMode ? "bg-gray-900 text-white" : "bg-slate-400 text-black"
+        }`}
+      >
         <form onSubmit={handleRivew} className="card-body">
           <div className="form-control mt-4">
-            <label className=" label">
+            <label className="label">
               <span className="label-text">Rating</span>
             </label>
             <Rating
@@ -70,7 +74,11 @@ export default function UserRivew({ setModal, daynamicId, name }) {
               type="text"
               name="comment"
               placeholder="Enter your comment"
-              className="input input-bordered h-24"
+              className={`input input-bordered h-24 ${
+                darkMode
+                  ? "bg-gray-800 text-white border-gray-600"
+                  : "bg-white text-black border-gray-300"
+              }`}
               required
             />
           </div>

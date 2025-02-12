@@ -1,4 +1,8 @@
+import { useContext } from "react";
+import { AuthContext } from "../user/Authprovider";
+
 const FeatureCard = ({ room }) => {
+  const { darkMode } = useContext(AuthContext);
   const { name, photo, description, price, roomtyp } = room;
 
   // Ensure uniform description length (max 80 characters)
@@ -8,7 +12,11 @@ const FeatureCard = ({ room }) => {
       : description || "No description available.";
 
   return (
-    <div className="bg-white shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 duration-300">
+    <div
+      className={`shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 duration-300 ${
+        darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+      }`}
+    >
       {/* Room Image */}
       <img
         src={photo || "https://via.placeholder.com/300"}
@@ -18,17 +26,15 @@ const FeatureCard = ({ room }) => {
 
       {/* Room Details */}
       <div className="p-4">
-        <h3 className="text-xl font-semibold text-gray-800">
-          {name || "Unknown Room"}
-        </h3>
-        <p className="text-gray-600 text-sm mt-1">{shortDescription}</p>
+        <h3 className="text-xl font-semibold">{name || "Unknown Room"}</h3>
+        <p className="text-sm mt-1">{shortDescription}</p>
 
         {/* Room Type & Price */}
         <div className="mt-4 flex justify-between items-center">
-          <span className="text-sm font-semibold text-white bg-blue-600 px-3 py-1 rounded-full">
+          <span className="text-sm font-semibold px-3 py-1 rounded-full bg-blue-600 text-white">
             {roomtyp || "Unknown Type"}
           </span>
-          <span className="text-lg font-bold text-green-600">
+          <span className="text-lg font-bold text-green-500">
             ${price || "N/A"}
           </span>
         </div>
