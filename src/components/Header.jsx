@@ -14,7 +14,7 @@ export default function Header() {
 
   return (
     <div
-      className={`sticky top-0 z-50 backdrop-blur-md opacity-95 ${
+      className={`fixed top-0 left-0 z-50 w-full backdrop-blur-md opacity-95 ${
         darkMode ? "bg-gray-900 text-white" : "bg-slate-300"
       }`}
     >

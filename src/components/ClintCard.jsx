@@ -1,10 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { AuthContext } from "../user/Authprovider";
 
 export default function ClintCard({ card }) {
+  const { darkMode } = useContext(AuthContext);
   const { displayName, rating, comment, timestamp, photoURL } = card;
   return (
     <div>
-      <div className="card bg-primary mx-4 h-56  text-primary-content ">
+      <div
+        className={`card ${
+          darkMode ? "bg-slate-400 text-black" : "bg-primary text-white"
+        } mx-4 h-56  `}
+      >
         <div className="card-body ">
           <div className="flex gap-4 ">
             <div className="w-1/3">

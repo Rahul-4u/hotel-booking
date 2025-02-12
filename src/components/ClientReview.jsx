@@ -1,18 +1,19 @@
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
+import { AuthContext } from "../user/Authprovider";
 import ClintCard from "./ClintCard";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
 export default function ClientReview() {
+  const { darkMode } = useContext(AuthContext);
   const settings = {
     dots: true,
     infinite: true,
     speed: 600,
     slidesToShow: 3,
     slidesToScroll: 1,
-    // autoplay: true,
     autoplaySpeed: 3000,
     pauseOnHover: true,
     responsive: [
@@ -49,21 +50,24 @@ export default function ClientReview() {
     };
     fetchRooms();
   }, []);
+
   return (
-    <div className=" max-w-[1440px] mx-auto">
-      <div>
+    <div className={`${darkMode ? "bg-gray-900" : "bg-white"}`}>
+      <div
+        className={`max-w-[1440px] mx-auto transition-all ${
+          darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
+        }`}
+      >
         <h1 className="text-3xl font-bold my-10 text-center">Client Review</h1>
-        <div>
-          <div className="slider-container  ">
-            <Slider
-              {...settings}
-              className=" flex items-center justify-center gap-10 w-11/12 mx-auto"
-            >
-              {cards?.map((card, index) => (
-                <ClintCard key={index} card={card} />
-              ))}
-            </Slider>
-          </div>
+        <div className="slider-container">
+          <Slider
+            {...settings}
+            className="flex items-center justify-center gap-10 w-11/12 mx-auto"
+          >
+            {cards?.map((card, index) => (
+              <ClintCard key={index} card={card} />
+            ))}
+          </Slider>
         </div>
       </div>
     </div>
