@@ -11,10 +11,10 @@ import FAQ from "../components/FAQ";
 import OuerServices from "../components/OuerServices";
 
 export default function Home() {
-  const { user } = useContext(AuthContext);
+  const { user, darkMode } = useContext(AuthContext);
 
   return (
-    <div>
+    <div className={`${darkMode ? "bg-gray-900" : "bg-white"}`}>
       <header>
         <Header />
         <section>
