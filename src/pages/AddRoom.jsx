@@ -3,9 +3,13 @@ import Header from "../components/Header";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Footer from "../components/Footer";
+import { useContext } from "react";
+import { AuthContext } from "../user/Authprovider";
 
 export default function AddRoom() {
   const navigate = useNavigate();
+  const { darkMode } = useContext(AuthContext); // Get darkMode from context
+
   const handleRoom = async (e) => {
     e.preventDefault();
     const from = e.target;
@@ -52,88 +56,128 @@ export default function AddRoom() {
       }
     } catch (error) {
       console.error("error add room", error);
-      // toast.error("N/A");
+      toast.error("Failed to add room");
     }
   };
 
   return (
-    <div>
+    <div className={`min-h-screen ${darkMode ? "bg-gray-900" : "bg-gray-100"}`}>
       <Header />
-      <div className="min-h-screen bg-gray-100 py-12 px-6">
-        <div className="mx-w-2/3 mx-auto bg-white shadow-xl rounded-lg p-8">
-          <h1 className="text-3xl font-semibold text-center mb-8 text-gray-700">
+      <div className="py-12 px-6">
+        <div
+          className={`max-w-3xl mx-auto shadow-xl rounded-lg p-8 ${
+            darkMode ? "bg-gray-800 text-gray-100" : "bg-white text-gray-700"
+          }`}
+        >
+          <h1
+            className={`text-3xl font-semibold text-center mb-8 ${
+              darkMode ? "text-white" : "text-gray-700"
+            }`}
+          >
             Add New Room
           </h1>
 
-          {/* form  --------1--------add */}
-          <form onSubmit={handleRoom} className=" space-y-6">
+          {/* Form */}
+          <form onSubmit={handleRoom} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Room Name */}
               <div>
-                <label className="block text-gray-600">Room Name</label>
+                <label className="block mb-2">Room Name</label>
                 <input
                   type="text"
                   name="name"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
-              {/* --------2------- */}
+
+              {/* Price */}
               <div>
-                <label className="block text-gray-600">Price (per night)</label>
+                <label className="block mb-2">Price (per night)</label>
                 <input
                   type="number"
                   name="price"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
-              {/* --------3------- */}
-              <div className="form-control">
-                <label className="label">
-                  <span className="label-text">Room Type</span>
-                </label>
 
-                {/*  */}
+              {/* Room Type */}
+              <div>
+                <label className="block mb-2">Room Type</label>
                 <select
                   name="roomtyp"
-                  className="select select-ghost border-sky-200 w-full max-w-xs"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 >
                   <option disabled selected>
-                    Select Room Type{" "}
+                    Select Room Type
                   </option>
                   <option>Single</option>
                   <option>Double</option>
                   <option>Suite</option>
                 </select>
               </div>
-              {/* --------4------- */}
+
+              {/* Max Guests */}
               <div>
-                <label className="block text-gray-600">Max Guests</label>
+                <label className="block mb-2">Max Guests</label>
                 <input
                   type="number"
                   name="maxguests"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
-              {/* ------5--------- */}
+
+              {/* Room Size */}
               <div>
-                <label className="block text-gray-600">Room Size (sq ft)</label>
+                <label className="block mb-2">Room Size (sq ft)</label>
                 <input
                   type="number"
                   name="size"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
-              {/* -------6-------- */}
+
+              {/* Description */}
               <div>
-                <label className="block text-gray-600">Description</label>
+                <label className="block mb-2">Description</label>
                 <textarea
-                  type="text"
                   name="description"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
-              {/* --------7------- */}
+
+              {/* Facilities */}
               <div>
-                <label className="block text-gray-600">Facilities</label>
+                <label className="block mb-2">Facilities</label>
                 <div className="flex space-x-4">
                   <label className="flex items-center">
                     <input
@@ -164,50 +208,78 @@ export default function AddRoom() {
                   </label>
                 </div>
               </div>
-              {/* -------8-------- */}
+
+              {/* Room Image */}
               <div>
-                <label className="block text-gray-600">Room Image</label>
+                <label className="block mb-2">Room Image</label>
                 <input
                   type="text"
                   name="photo"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
-              {/* --------9------- */}
+
+              {/* Available */}
               <div>
-                <label className="block text-gray-600">Available</label>
+                <label className="block mb-2">Available</label>
                 <input
                   type="number"
                   name="available"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
+
+              {/* Special Offer */}
               <div>
-                <label className="block text-gray-600">
-                  Special Offer (if any)
-                </label>
+                <label className="block mb-2">Special Offer (if any)</label>
                 <input
                   type="text"
                   name="special"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
                 />
               </div>
+
+              {/* Dynamic ID */}
               <div>
-                <label className="block text-gray-600">Daynamic Id</label>
+                <label className="block mb-2">Dynamic ID</label>
                 <input
                   type="text"
                   name="daynamicId"
-                  className="w-full p-3 border border-gray-300 rounded-md"
+                  className={`w-full p-3 rounded-md ${
+                    darkMode
+                      ? "bg-gray-700 text-white border-gray-600"
+                      : "bg-white text-gray-700 border-gray-300"
+                  }`}
+                  required
                 />
               </div>
             </div>
+
+            {/* Submit Button */}
             <button
               type="submit"
-              className="w-full btn px-4 bg-blue-600 rounnded-lg  text-white"
+              className={`w-full p-3 rounded-md font-semibold ${
+                darkMode
+                  ? "bg-blue-600 hover:bg-blue-700 text-white"
+                  : "bg-blue-500 hover:bg-blue-600 text-white"
+              } transition-colors duration-300`}
             >
               Add Room
             </button>
-            {/* --------------- */}
           </form>
         </div>
       </div>

@@ -9,7 +9,7 @@ export default function RoomCard({ room }) {
   const { name, photo, description, price, roomtyp, _id, daynamicId } = room;
   const [reviews, setReviews] = useState([]);
   const [modal, setModal] = useState(false);
-  const { user } = useContext(AuthContext);
+  const { user, darkMode } = useContext(AuthContext);
   const [privet, setPrivet] = useState(false);
 
   // Fetch reviews and filter by room ID
@@ -50,43 +50,66 @@ export default function RoomCard({ room }) {
       : description || "No description available.";
 
   return (
-    <div className="max-w-lg mx-auto">
-      <div className="bg-white shadow-lg border border-gray-200 rounded-xl overflow-hidden transition transform hover:scale-105 duration-300">
+    <div className="max-w-sm mx-auto">
+      <div
+        className={`rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 ${
+          darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+        }`}
+      >
+        {/* Room Image */}
         <NavLink to={`/room-details/${_id}`}>
           <figure>
             <img
-              className="w-full h-72 object-cover"
+              className="w-full h-64 object-cover"
               src={photo || "https://via.placeholder.com/400"}
               alt={name || "Room"}
             />
           </figure>
-          <div className="p-6 bg-slate-100">
-            <h2 className="text-xl font-semibold text-gray-800">
-              {name || "Unknown Room"}
-            </h2>
-            <p className="text-gray-600 text-sm mt-2">{shortDescription}</p>
-
-            {/* Room Type & Price */}
-            <div className="flex justify-between items-center mt-4">
-              <span className="text-sm font-semibold text-white bg-blue-600 px-3 py-1 rounded-full">
-                {roomtyp || "Unknown Type"}
-              </span>
-              <span className="text-lg font-bold text-green-600">
-                ${price || "N/A"}
-              </span>
-            </div>
-
-            {/* Reviews Count */}
-            <p className="mt-3 text-gray-700 font-medium">
-              Reviews: {reviews.length}
-            </p>
-          </div>
         </NavLink>
+
+        {/* Room Details */}
+        <div className={`p-6 ${darkMode ? "bg-gray-800" : "bg-white"}`}>
+          <h2 className="text-2xl font-bold mb-2">{name || "Unknown Room"}</h2>
+          <p className="text-sm mb-4">{shortDescription}</p>
+
+          {/* Room Type & Price */}
+          <div className="flex justify-between items-center mb-4">
+            <span
+              className={`text-sm font-semibold px-3 py-1 rounded-full ${
+                darkMode
+                  ? "bg-blue-600 text-white"
+                  : "bg-blue-100 text-blue-800"
+              }`}
+            >
+              {roomtyp || "Unknown Type"}
+            </span>
+            <span
+              className={`text-xl font-bold ${
+                darkMode ? "text-green-400" : "text-green-600"
+              }`}
+            >
+              ${price || "N/A"}
+            </span>
+          </div>
+
+          {/* Reviews Count */}
+          <p
+            className={`text-sm font-medium ${
+              darkMode ? "text-gray-300" : "text-gray-600"
+            }`}
+          >
+            Reviews: {reviews.length}
+          </p>
+        </div>
 
         {/* Book Now Button */}
         <button
           onClick={handleModal}
-          className="w-full bg-blue-500 text-white py-3 font-semibold hover:bg-blue-600 transition"
+          className={`w-full py-3 font-semibold transition-colors duration-300 ${
+            darkMode
+              ? "bg-blue-600 hover:bg-blue-700 text-white"
+              : "bg-blue-500 hover:bg-blue-600 text-white"
+          }`}
         >
           Book Now
         </button>
