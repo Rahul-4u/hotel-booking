@@ -1,15 +1,35 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../user/Authprovider";
-import { NavLink } from "react-router-dom";
+import { Navigate, NavLink, useParams } from "react-router-dom";
+import BookNowModal from "./BookNowModal";
 
-const FeatureCard = ({ room, handleBookNow }) => {
-  const { darkMode } = useContext(AuthContext);
-  const { name, photo, description, price, roomtyp, _id } = room;
+const FeatureCard = ({ room }) => {
+
+  const { user, darkMode } = useContext(AuthContext);
+    const [modal, setModal] = useState(false);
+
+    const [privet, setPrivet] = useState(false);
+  
+    const { id } = useParams();
+
+  const { name, photo, description, price, roomtyp, _id, daynamicId } = room;
 
   const shortDescription =
     description && description.length > 85
       ? description.substring(0, 85) + "..."
       : description || "No description available.";
+  
+  const handleModal = () => {
+    if (!user || !user.email) {
+      setPrivet(true);
+    } else {
+      setModal(!modal);
+    }
+  };
+   if (privet) {
+     return <Navigate to={"/login"} />;
+   }
+
 
   return (
     <div className="max-w-sm mx-auto transition-all duration-300">
@@ -49,13 +69,20 @@ const FeatureCard = ({ room, handleBookNow }) => {
           </div>
 
           <button
-            onClick={() => handleBookNow(room)}
+            onClick={handleModal}
             className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-xl transition-all duration-300"
           >
             Book Now
           </button>
         </div>
       </div>
+       {modal && (
+              <BookNowModal
+                room={room}
+                daynamicId={daynamicId}
+                handleModal={handleModal}
+              />
+            )}
     </div>
   );
 };
