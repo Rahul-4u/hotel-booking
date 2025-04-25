@@ -21,18 +21,17 @@ export default function ClientReview() {
         breakpoint: 1024,
         settings: {
           slidesToShow: 2,
-          slidesToScroll: 1,
         },
       },
       {
         breakpoint: 768,
         settings: {
           slidesToShow: 1,
-          slidesToScroll: 1,
         },
       },
     ],
   };
+
   const [cards, setCards] = useState([]);
 
   useEffect(() => {
@@ -45,24 +44,24 @@ export default function ClientReview() {
           setCards(res.data);
         }
       } catch (error) {
-        console.error("fetching error", error);
+        console.error("Fetching error:", error);
       }
     };
     fetchRooms();
   }, []);
 
   return (
-    <div className={`${darkMode ? "bg-gray-900" : "bg-white"}`}>
-      <div
-        className={`max-w-[1440px] mx-auto transition-all ${
-          darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
-        }`}
-      >
-        <h1 className="text-3xl font-bold my-10 text-center">Client Review</h1>
+    <section
+      className={`py-12 transition-all duration-300 ${
+        darkMode ? "bg-gray-900 text-white" : "bg-gray-100 text-gray-800"
+      }`}
+    >
+      <div className="max-w-[1440px] mx-auto px-4">
+        <h1 className="text-3xl font-bold text-center mb-10">Client Reviews</h1>
         <div className="slider-container">
           <Slider
             {...settings}
-            className="flex items-center justify-center gap-10 w-11/12 mx-auto"
+            className="mx-auto w-[95%] md:w-[90%] lg:w-[85%]"
           >
             {cards?.map((card, index) => (
               <ClintCard key={index} card={card} />
@@ -70,6 +69,6 @@ export default function ClientReview() {
           </Slider>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
