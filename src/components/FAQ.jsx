@@ -1,9 +1,34 @@
 import { useContext, useState } from "react";
 import { MdArrowOutward, MdArrowDownward } from "react-icons/md";
 import { AuthContext } from "../user/Authprovider";
+import { NavLink } from "react-router-dom";
+
+// Dynamic FAQ data
+const faqData = [
+  {
+    question: "Where Can I Find Information?",
+    answer:
+      "You can find all the information you need in the Help section or by contacting our support.",
+  },
+  {
+    question: "Can I Buy Directly From The Factory?",
+    answer:
+      "Yes, we provide factory-direct purchases for bulk orders. Contact us for more details.",
+  },
+  {
+    question: "What Kinds of Payment Do You Accept?",
+    answer:
+      "We accept credit/debit cards, PayPal, and other major payment methods for your convenience.",
+  },
+  {
+    question: "When do I receive my order?",
+    answer:
+      "Your order will be delivered within 3-5 business days depending on your location.",
+  },
+];
 
 export default function FAQ() {
-  const { darkMode } = useContext(AuthContext); // Getting darkMode value from context
+  const { darkMode } = useContext(AuthContext);
   const [open, setOpen] = useState(null);
 
   const handleToggle = (index) => {
@@ -16,27 +41,22 @@ export default function FAQ() {
         darkMode ? "bg-gray-900 text-white" : "bg-white text-black"
       }`}
     >
-      {/* Image Container - Adjusted for larger size */}
-      <div className="md:w-1/2 p-6">
+      {/* Image Section */}
+      <div className="md:w-1/2 p-6 flex justify-center">
         <img
-          src="https://i.ibb.co.com/9HV9wP9/download-28.jpg"
-          className="w-full h-auto rounded-lg shadow-2xl"
+          src="https://i.ibb.co.com/JRqdk7nq/Hand-drawn-cartoon-faq-business-plant-illustration-dai-social-136911-wh1200-removebg-preview.png"
+          className="w-full max-w-md h-auto rounded-xl shadow-xl object-cover mx-auto"
           alt="FAQ Illustration"
         />
       </div>
 
-      {/* FAQ Content */}
+      {/* FAQ Section */}
       <div className="md:w-1/2 p-6">
         <h1 className="lg:text-5xl md:text-3xl text-2xl font-semibold mb-6">
           Frequently Asked <br /> Questions
         </h1>
 
-        {[
-          "Where Can I Find Information?",
-          "Can I Buy Directly From The Factory?",
-          "What Kinds of Payment Do You Accept?",
-          "When do I receive my order?",
-        ].map((question, index) => (
+        {faqData.map((faq, index) => (
           <div
             key={index}
             className={`flex flex-col my-4 border-b-2 ${
@@ -44,36 +64,35 @@ export default function FAQ() {
             }`}
           >
             <button
-              onClick={() => handleToggle(index + 1)}
+              onClick={() => handleToggle(index)}
               className={`my-1 flex gap-5 lg:text-2xl md:text-xl font-semibold items-center ${
                 darkMode
                   ? "text-white hover:text-gray-300"
                   : "text-black hover:text-gray-700"
               }`}
-              aria-expanded={open === index + 1}
-              aria-controls={`faq-${index + 1}`}
+              aria-expanded={open === index}
+              aria-controls={`faq-${index}`}
             >
-              {question}
+              {faq.question}
               <span className="text-2xl font-semibold transition-transform duration-300">
-                {open === index + 1 ? <MdArrowDownward /> : <MdArrowOutward />}
+                {open === index ? <MdArrowDownward /> : <MdArrowOutward />}
               </span>
             </button>
-            {open === index + 1 && (
+            {open === index && (
               <p
-                id={`faq-${index + 1}`}
+                id={`faq-${index}`}
                 className={`py-3 transition-all duration-300 ${
                   darkMode ? "text-gray-300" : "text-gray-700"
                 }`}
               >
-                Provident cupiditate voluptatem et in. Quaerat fugiat ut
-                assumenda excepturi exercitationem quasi. In deleniti eaque aut
-                repudiandae et a id nisi.
+                {faq.answer}
               </p>
             )}
           </div>
         ))}
 
-        <button
+        <NavLink
+          to="/rooms"
           className={`btn btn-primary mt-6 ${
             darkMode
               ? "bg-blue-600 hover:bg-blue-700"
@@ -81,7 +100,7 @@ export default function FAQ() {
           } text-white font-semibold py-2 px-4 rounded-lg transition-colors duration-300`}
         >
           Get Started
-        </button>
+        </NavLink>
       </div>
     </div>
   );

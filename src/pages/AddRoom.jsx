@@ -8,7 +8,7 @@ import { AuthContext } from "../user/Authprovider";
 
 export default function AddRoom() {
   const navigate = useNavigate();
-  const { darkMode } = useContext(AuthContext); // Get darkMode from context
+  const { darkMode } = useContext(AuthContext);
 
   const handleRoom = async (e) => {
     e.preventDefault();
@@ -80,13 +80,12 @@ export default function AddRoom() {
           {/* Form */}
           <form onSubmit={handleRoom} className="space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Room Name */}
               <div>
                 <label className="block mb-2">Room Name</label>
                 <input
                   type="text"
                   name="name"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -95,13 +94,12 @@ export default function AddRoom() {
                 />
               </div>
 
-              {/* Price */}
               <div>
                 <label className="block mb-2">Price (per night)</label>
                 <input
                   type="number"
                   name="price"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -110,12 +108,11 @@ export default function AddRoom() {
                 />
               </div>
 
-              {/* Room Type */}
               <div>
                 <label className="block mb-2">Room Type</label>
                 <select
                   name="roomtyp"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -131,13 +128,12 @@ export default function AddRoom() {
                 </select>
               </div>
 
-              {/* Max Guests */}
               <div>
                 <label className="block mb-2">Max Guests</label>
                 <input
                   type="number"
                   name="maxguests"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -146,13 +142,12 @@ export default function AddRoom() {
                 />
               </div>
 
-              {/* Room Size */}
               <div>
                 <label className="block mb-2">Room Size (sq ft)</label>
                 <input
                   type="number"
                   name="size"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -161,61 +156,40 @@ export default function AddRoom() {
                 />
               </div>
 
-              {/* Description */}
-              <div>
+              <div className="md:col-span-2">
                 <label className="block mb-2">Description</label>
                 <textarea
                   name="description"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
                   }`}
+                  rows={4}
                   required
                 />
               </div>
 
-              {/* Facilities */}
-              <div>
+              <div className="md:col-span-2">
                 <label className="block mb-2">Facilities</label>
-                <div className="flex space-x-4">
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value="WiFi"
-                      name="facilities"
-                      className="mr-2"
-                    />
-                    WiFi
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value="AC"
-                      name="facilities"
-                      className="mr-2"
-                    />
-                    AC
-                  </label>
-                  <label className="flex items-center">
-                    <input
-                      type="checkbox"
-                      value="TV"
-                      name="facilities"
-                      className="mr-2"
-                    />
-                    TV
-                  </label>
+                <div className="flex flex-wrap gap-4">
+                  {["WiFi", "AC", "TV", "Mini Bar", "Balcony", "Heater"].map(
+                    (item) => (
+                      <label key={item} className="flex items-center space-x-2">
+                        <input type="checkbox" name="facilities" value={item} />
+                        <span>{item}</span>
+                      </label>
+                    )
+                  )}
                 </div>
               </div>
 
-              {/* Room Image */}
-              <div>
-                <label className="block mb-2">Room Image</label>
+              <div className="md:col-span-2">
+                <label className="block mb-2">Photo URL</label>
                 <input
                   type="text"
                   name="photo"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -224,11 +198,9 @@ export default function AddRoom() {
                 />
               </div>
 
-              {/* Available */}
               <div>
                 <label className="block mb-2">Available</label>
-                <input
-                  type="number"
+                <select
                   name="available"
                   className={`w-full p-3 rounded-md ${
                     darkMode
@@ -236,30 +208,34 @@ export default function AddRoom() {
                       : "bg-white text-gray-700 border-gray-300"
                   }`}
                   required
-                />
+                >
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
               </div>
 
-              {/* Special Offer */}
               <div>
-                <label className="block mb-2">Special Offer (if any)</label>
-                <input
-                  type="text"
+                <label className="block mb-2">Special</label>
+                <select
                   name="special"
                   className={`w-full p-3 rounded-md ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
                   }`}
-                />
+                  required
+                >
+                  <option>Yes</option>
+                  <option>No</option>
+                </select>
               </div>
 
-              {/* Dynamic ID */}
-              <div>
+              <div className="md:col-span-2">
                 <label className="block mb-2">Dynamic ID</label>
                 <input
                   type="text"
                   name="daynamicId"
-                  className={`w-full p-3 rounded-md ${
+                  className={`w-full p-3 rounded-md border ${
                     darkMode
                       ? "bg-gray-700 text-white border-gray-600"
                       : "bg-white text-gray-700 border-gray-300"
@@ -269,17 +245,14 @@ export default function AddRoom() {
               </div>
             </div>
 
-            {/* Submit Button */}
-            <button
-              type="submit"
-              className={`w-full p-3 rounded-md font-semibold ${
-                darkMode
-                  ? "bg-blue-600 hover:bg-blue-700 text-white"
-                  : "bg-blue-500 hover:bg-blue-600 text-white"
-              } transition-colors duration-300`}
-            >
-              Add Room
-            </button>
+            <div className="text-center">
+              <button
+                type="submit"
+                className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg"
+              >
+                Add Room
+              </button>
+            </div>
           </form>
         </div>
       </div>

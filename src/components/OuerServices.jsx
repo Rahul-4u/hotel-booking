@@ -34,79 +34,75 @@ export default function OurServices() {
   }, []);
 
   return (
-    <div
-      className={`max-w-7xl mx-auto px-4 py-10 ${
-        darkMode ? "bg-gray-900" : "bg-white"
+    <section
+      className={`max-w-7xl mx-auto px-4 py-16 transition-colors duration-300 ${
+        darkMode ? "bg-gray-900" : "bg-gray-50"
       }`}
     >
       <h1
-        className={`text-4xl font-semibold text-center ${
+        className={`text-4xl font-bold text-center mb-12 tracking-tight ${
           darkMode ? "text-white" : "text-gray-800"
-        } mb-8`}
+        }`}
       >
         {title}
       </h1>
 
       {loading ? (
-        <div className="flex justify-center items-center h-32">
-          <div className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
+        <div className="flex justify-center items-center h-40">
+          <div className="w-12 h-12 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
         </div>
       ) : services.length > 0 ? (
-        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-8">
+        <div className="grid lg:grid-cols-3 md:grid-cols-2 grid-cols-1 gap-10">
           {services.map((service, index) => (
             <div
               key={index}
-              className={`${
+              className={`group transform hover:scale-[1.02] transition duration-300 ease-in-out rounded-2xl overflow-hidden shadow-xl p-6 flex flex-col justify-between ${
                 darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-900"
-              } shadow-lg rounded-lg p-6 text-center`}
+              }`}
             >
-              <figure className="flex justify-center">
+              <figure className="flex justify-center mb-4">
                 <img
                   src={service.photo || "https://via.placeholder.com/100"}
                   alt={service.taitel || "Service Image"}
-                  className="rounded-xl w-24 h-24 object-cover"
+                  className="w-24 h-24 object-cover rounded-full shadow-md border-4 border-blue-100 group-hover:border-blue-400 transition duration-300"
                 />
               </figure>
-              <div className="mt-4">
-                <h2
-                  className={`text-xl font-semibold ${
-                    darkMode ? "text-white" : "text-gray-900"
-                  }`}
-                >
+              <div className="flex-1 text-center">
+                <h2 className="text-xl font-semibold mb-2 capitalize">
                   {service.taitel || "Untitled Service"}
                 </h2>
                 <p
-                  className={`${
+                  className={`text-sm leading-relaxed ${
                     darkMode ? "text-gray-300" : "text-gray-600"
-                  } mt-2`}
+                  }`}
                 >
                   {service.dec || "No description available."}
                 </p>
-                <div className="mt-4">
-                  <NavLink
-                    to="/rooms"
-                    className={`${
-                      darkMode
-                        ? "text-blue-300 hover:text-blue-400"
-                        : "text-blue-500 hover:text-blue-700"
-                    } font-medium`}
-                  >
-                    View All Rooms →
-                  </NavLink>
-                </div>
+              </div>
+              <div className="mt-6 text-center">
+                <NavLink
+                  to="/rooms"
+                  className={`inline-block font-semibold transition ${
+                    darkMode
+                      ? "text-blue-300 hover:text-white"
+                      : "text-blue-600 hover:text-blue-800"
+                  }`}
+                >
+                  View All Rooms →
+                </NavLink>
               </div>
             </div>
           ))}
         </div>
       ) : (
         <div
-          className={`text-center ${
+          className={`text-center mt-10 text-lg font-medium ${
             darkMode ? "text-gray-300" : "text-gray-500"
-          } text-lg mt-6`}
+          }`}
         >
           No services available at the moment. Please check back later!
         </div>
       )}
-    </div>
+    </section>
   );
 }
