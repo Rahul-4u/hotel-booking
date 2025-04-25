@@ -12,7 +12,6 @@ export default function RoomCard({ room }) {
   const { user, darkMode } = useContext(AuthContext);
   const [privet, setPrivet] = useState(false);
 
-  // Fetch reviews and filter by room ID
   useEffect(() => {
     const fetchReviews = async () => {
       try {
@@ -29,7 +28,6 @@ export default function RoomCard({ room }) {
     fetchReviews();
   }, [daynamicId]);
 
-  // Handle modal opening
   const handleModal = () => {
     if (!user || !user.email) {
       setPrivet(true);
@@ -38,84 +36,61 @@ export default function RoomCard({ room }) {
     }
   };
 
-  // Redirect to login if user is not authenticated
   if (privet) {
     return <Navigate to={"/login"} />;
   }
 
-  // Shorten long descriptions
   const shortDescription =
     description && description.length > 85
       ? description.substring(0, 85) + "..."
       : description || "No description available.";
 
   return (
-    <div className="max-w-sm mx-auto">
+    <div className="max-w-sm mx-auto transition-all duration-300">
       <div
-        className={`rounded-xl overflow-hidden shadow-lg transition-transform duration-300 hover:scale-105 ${
+        className={`rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ${
           darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
         }`}
       >
-        {/* Room Image */}
-        <NavLink to={`/room-details/${_id}`}>
-          <figure>
+        <div className="relative">
+          <NavLink to={`/room-details/${_id}`}>
             <img
               className="w-full h-64 object-cover"
               src={photo || "https://via.placeholder.com/400"}
               alt={name || "Room"}
             />
-          </figure>
-        </NavLink>
-
-        {/* Room Details */}
-        <div className={`p-6 ${darkMode ? "bg-gray-800" : "bg-white"}`}>
-          <h2 className="text-2xl font-bold mb-2">{name || "Unknown Room"}</h2>
-          <p className="text-sm mb-4">{shortDescription}</p>
-
-          {/* Room Type & Price */}
-          <div className="flex justify-between items-center mb-4">
-            <span
-              className={`text-sm font-semibold px-3 py-1 rounded-full ${
-                darkMode
-                  ? "bg-blue-600 text-white"
-                  : "bg-blue-100 text-blue-800"
-              }`}
-            >
+            <span className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
               {roomtyp || "Unknown Type"}
             </span>
-            <span
-              className={`text-xl font-bold ${
-                darkMode ? "text-green-400" : "text-green-600"
-              }`}
-            >
-              ${price || "N/A"}
-            </span>
-          </div>
-
-          {/* Reviews Count */}
-          <p
-            className={`text-sm font-medium ${
-              darkMode ? "text-gray-300" : "text-gray-600"
-            }`}
-          >
-            Reviews: {reviews.length}
-          </p>
+          </NavLink>
         </div>
 
-        {/* Book Now Button */}
-        <button
-          onClick={handleModal}
-          className={`w-full py-3 font-semibold transition-colors duration-300 ${
-            darkMode
-              ? "bg-blue-600 hover:bg-blue-700 text-white"
-              : "bg-blue-500 hover:bg-blue-600 text-white"
-          }`}
-        >
-          Book Now
-        </button>
+        <div className="p-6 space-y-4">
+          <h2 className="text-2xl font-bold">{name || "Unknown Room"}</h2>
+          <p className="text-sm leading-relaxed">{shortDescription}</p>
+
+          <div className="flex justify-between items-center">
+            <p
+              className={`text-sm font-medium ${
+                darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              Reviews: {reviews.length}
+            </p>
+            <p className="text-lg font-bold text-green-500">
+              ${price || "N/A"}
+            </p>
+          </div>
+
+          <button
+            onClick={handleModal}
+            className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-xl transition-all duration-300"
+          >
+            Book Now
+          </button>
+        </div>
       </div>
 
-      {/* Modal */}
       {modal && (
         <BookNowModal
           room={room}

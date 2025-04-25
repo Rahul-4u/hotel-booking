@@ -1,51 +1,60 @@
 import { useContext } from "react";
 import { AuthContext } from "../user/Authprovider";
+import { NavLink } from "react-router-dom";
 
-const FeatureCard = ({ room }) => {
+const FeatureCard = ({ room, handleBookNow }) => {
   const { darkMode } = useContext(AuthContext);
-  const { name, photo, description, price, roomtyp } = room;
+  const { name, photo, description, price, roomtyp, _id } = room;
 
-  // Ensure uniform description length (max 80 characters)
   const shortDescription =
-    description && description.length > 80
-      ? description.substring(0, 80) + "..."
+    description && description.length > 85
+      ? description.substring(0, 85) + "..."
       : description || "No description available.";
 
   return (
-    <div
-      className={`shadow-lg rounded-lg overflow-hidden transition transform hover:scale-105 duration-300 ${
-        darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
-      }`}
-    >
-      {/* Room Image */}
-      <img
-        src={photo || "https://via.placeholder.com/300"}
-        alt={name || "Room Image"}
-        className="w-full h-60 object-cover"
-      />
-
-      {/* Room Details */}
-      <div className="p-4">
-        <h3 className="text-xl font-semibold">{name || "Unknown Room"}</h3>
-        <p className="text-sm mt-1">{shortDescription}</p>
-
-        {/* Room Type & Price */}
-        <div className="mt-4 flex justify-between items-center">
-          <span className="text-sm font-semibold px-3 py-1 rounded-full bg-blue-600 text-white">
-            {roomtyp || "Unknown Type"}
-          </span>
-          <span className="text-lg font-bold text-green-500">
-            ${price || "N/A"}
-          </span>
+    <div className="max-w-sm mx-auto transition-all duration-300">
+      <div
+        className={`rounded-2xl overflow-hidden shadow-xl hover:shadow-2xl transform hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ${
+          darkMode ? "bg-gray-800 text-white" : "bg-white text-gray-800"
+        }`}
+      >
+        <div className="relative">
+          <NavLink to={`/room-details/${_id}`}>
+            <img
+              className="w-full h-64 object-cover"
+              src={photo || "https://via.placeholder.com/400"}
+              alt={name || "Room"}
+            />
+            <span className="absolute top-4 left-4 bg-gradient-to-r from-blue-500 to-indigo-500 text-white text-xs font-semibold px-3 py-1 rounded-full shadow-md">
+              {roomtyp || "Unknown Type"}
+            </span>
+          </NavLink>
         </div>
 
-        {/* Book Now Button */}
-        <button
-          onClick={() => alert(`Booking room: ${name}`)}
-          className="mt-4 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition"
-        >
-          Book Now
-        </button>
+        <div className="p-6 space-y-4">
+          <h2 className="text-2xl font-bold">{name || "Unknown Room"}</h2>
+          <p className="text-sm leading-relaxed">{shortDescription}</p>
+
+          <div className="flex justify-between items-center">
+            <p
+              className={`text-sm font-medium ${
+                darkMode ? "text-gray-300" : "text-gray-600"
+              }`}
+            >
+              Featured
+            </p>
+            <p className="text-lg font-bold text-green-500">
+              ${price || "N/A"}
+            </p>
+          </div>
+
+          <button
+            onClick={() => handleBookNow(room)}
+            className="w-full py-3 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white font-semibold rounded-xl transition-all duration-300"
+          >
+            Book Now
+          </button>
+        </div>
       </div>
     </div>
   );
